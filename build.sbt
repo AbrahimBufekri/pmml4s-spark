@@ -27,15 +27,15 @@ crossPaths := false
 libraryDependencies ++= {
   Seq(
     "org.pmml4s" %% "pmml4s" % "1.0.1",
-    "org.apache.spark" %% "spark-mllib" % "2.4.3" % "provided",
-    "org.scalatest" %% "scalatest" % "3.0.1" % "test",
+    "org.apache.spark" %% "spark-mllib" % "3.4.1" % "provided",
+    "org.scalatest" %% "scalatest" % "3.2.15" % "test",
     "junit" % "junit" % "4.12" % "test",
     "com.novocode" % "junit-interface" % "0.11" % "test"
   )
 }
 
-scalaVersion := "2.12.8"
+scalaVersion := "2.13.10"
 
 // publishing
 
-crossScalaVersions := Seq("2.12.8", "2.11.12")
+crossScalaVersions := Seq("2.13.10", "2.13")

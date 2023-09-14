@@ -66,7 +66,7 @@ class ScoreModel(
         val series = model.predict(Series.fromSeq(values))
         val outRow = Row.fromSeq(series.toSeq)
         if ($(prependInputs)) {
-          Row.merge(row, outRow)
+          Row(row.toSeq, outRow.toSeq)
         } else {
           outRow
         }
@@ -88,7 +88,7 @@ class ScoreModel(
     } else Map.empty
 
     val outputFields = model.outputSchema.map(x =>
-      StructField(namesMap.getOrElse(x.name, x.name), ScoreModel.toSpark(x.dataType), true))
+      StructField(namesMap.getOrElse(x.name, x.name), ScoreModel.toSpark(x.dataType), nullable = true))
     if (getPrependInputs) {
       StructType(schema.fields ++ outputFields)
     } else {
@@ -112,7 +112,7 @@ object ScoreModel {
   def fromBytes(bytes: Array[Byte]): ScoreModel = apply(Source.fromBytes(bytes))
 
   /** Constructs a score model from PMML in an inputs stream. */
-  def fromInputStream(is: InputStream): ScoreModel = apply(Source.fromInputStream(is));
+  def fromInputStream(is: InputStream): ScoreModel = apply(Source.fromInputStream(is))
 
   /** Constructs a score model from an IO source. */
   def apply(source: Source): ScoreModel = apply(Model(source))
